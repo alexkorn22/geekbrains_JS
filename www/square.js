@@ -1,26 +1,26 @@
-function Square(row, col, course)
+function Square(matrix, row, col, course)
 {
 	this.body = [row, col];
 	this.course = course;
-	var that = this; // то = это
+	var self = this;
 	
 	this.create = function()
 	{
-		m1.setCell(that.body[0], that.body[1], true);
-	}
+		matrix.setCell(self.body[0], self.body[1], true);
+	};
 	
 	this.move = function()
 	{
-		var last_body = that.body.slice();
+		var last_body = self.body.slice();
 		
-		switch(that.course)
+		switch(self.course)
 		{
 			case 'right':
-				that.body[1]++;
+				self.body[1]++;
 				break;
 		}
-		
-		m1.setCell(last_body[0], last_body[1], false);
-		m1.setCell(that.body[0], that.body[1], true);
+
+		matrix.setCell(last_body[0], last_body[1], false);
+		matrix.setCell(self.body[0], self.body[1], true);
 	}
 }

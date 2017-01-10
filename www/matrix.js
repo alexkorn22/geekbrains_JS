@@ -1,45 +1,40 @@
-//
-//  ласс матрицы.
-//
+"use strict"
+
 function Matrix(containerId, rows, cols)
 {
     // id контейнера
     this.containerId = containerId;
-
     // число строк
-    this.rows = rows;
-
+    this.rows = rows || 20;
     // число столбцов
-    this.cols = cols;
-
+    this.cols = cols || 20;
+    this.matrix = document.getElementById(this.containerId);
     // создание сетки
     this.create = function()
     {
-        var matrix = document.getElementById(this.containerId);
         var n = this.rows * this.cols;
 
-        matrix.innerHTML = '';
+        this.matrix.innerHTML = '';
 
         for (var i = 0; i < n; i++)
         {
             var div = document.createElement('div');
             div.className = 'cell';
-            matrix.appendChild(div);
+            this.matrix.appendChild(div);
         }
-    }
+    };
 
     // получить значение ¤чейки
     this.getCell = function(row, col)
     {
-        // todo
-    }
+
+    };
 
     // установить значение ¤чейки
     this.setCell = function(row, col, val)
     {
         var ind = (row - 1) * this.cols + col - 1;
-        var matrix = document.getElementById(this.containerId);
-        var cell = matrix.children[ind];
+        var cell = this.matrix.children[ind];
         cell.className = (val ? 'cell on' : 'cell');
     }
 }
