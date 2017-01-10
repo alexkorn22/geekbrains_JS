@@ -1,4 +1,3 @@
-"use strict"
 
 function Matrix(containerId, rows, cols)
 {
@@ -9,6 +8,8 @@ function Matrix(containerId, rows, cols)
     // число столбцов
     this.cols = cols || 20;
     this.matrix = document.getElementById(this.containerId);
+    this.matrix.style.width = this.cols * 20 + 'px';
+    this.matrix.style.height = this.rows * 20 + 'px';
     // создание сетки
     this.create = function()
     {
