@@ -1,21 +1,22 @@
-.matrix
-{
-	border-top: 1px solid #999;
-	border-left: 1px solid #999;
-}
 .wrap {
 	display: inline-block;
 	border: 3px solid black;
 }
 
-.cell
+.matrix
 {
+	border-top: 1px solid #999;
+	border-left: 1px solid #999;
+}
+
+.matrix > div {
 	float: left;
 	width: 19px;
-	height: 19px;	
+	height: 19px;
 	border-bottom: 1px solid #999;
-	border-right: 1px solid #999;	
+	border-right: 1px solid #999;
 }
+
 .on
 {
 	background-color: red;

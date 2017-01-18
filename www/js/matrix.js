@@ -1,5 +1,5 @@
 
-function Matrix(containerId, rows, cols)
+Matrix = function (containerId, rows, cols)
 {
     // id контейнера
     this.containerId = containerId;
@@ -10,33 +10,40 @@ function Matrix(containerId, rows, cols)
     this.matrix = document.getElementById(this.containerId);
     this.matrix.style.width = this.cols * 20 + 'px';
     this.matrix.style.height = this.rows * 20 + 'px';
-    // создание сетки
+
+    var self = this;
+
     this.create = function()
     {
-        var n = this.rows * this.cols;
+        var n = self.rows * self.cols;
 
         this.matrix.innerHTML = '';
 
-        for (var i = 0; i < n; i++)
+
+        for (var i = 1; i <= self.rows; i++)
         {
-            var div = document.createElement('div');
-            div.className = 'cell';
-            this.matrix.appendChild(div);
+            for (var j = 1; j <= self.cols; j++) {
+                var div = document.createElement('div');
+                div.id = 'cell_' + j + '_' + i;
+                this.matrix.appendChild(div);
+            }
+
         }
     };
 
-    // получить значение ¤чейки
-    this.getCell = function(row, col)
+    this.getCell = function(position)
     {
-
+        return $('#cell_' + position.x + '_' + position.y);
     };
 
     // установить значение ¤чейки
-    this.setCell = function(row, col, val)
+    this.setCell = function(position, valClass)
     {
-        var ind = (row - 1) * this.cols + col - 1;
-        var cell = this.matrix.children[ind];
-        cell.className = (val ? 'cell on' : 'cell');
+
+        var cell = self.getCell(position);
+
     }
-}
+
+
+};
 
