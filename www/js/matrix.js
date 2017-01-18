@@ -1,31 +1,27 @@
+"use strict";
 
-Matrix = function (containerId, rows, cols)
-{
-    // id контейнера
-    this.containerId = containerId;
-    // число строк
+var Matrix = function (element, rows, cols) {
+    this.element = element;
+    this.cellSize = 20;
     this.rows = rows || 20;
-    // число столбцов
     this.cols = cols || 20;
-    this.matrix = document.getElementById(this.containerId);
-    this.matrix.style.width = this.cols * 20 + 'px';
-    this.matrix.style.height = this.rows * 20 + 'px';
-
+    this.snake = null;
     var self = this;
 
-    this.create = function()
-    {
-        var n = self.rows * self.cols;
+    this.constructor = function() {
+        this.element.css({
+            width: this.cols * this.cellSize,
+            height: this.rows * this.cellSize
+        });
+        this.create();
+        this.snake = new Snake();
+    };
 
-        this.matrix.innerHTML = '';
-
-
+    this.create = function() {
         for (var i = 1; i <= self.rows; i++)
         {
             for (var j = 1; j <= self.cols; j++) {
-                var div = document.createElement('div');
-                div.id = 'cell_' + j + '_' + i;
-                this.matrix.appendChild(div);
+                self.element.append($("<div>").attr('id','cell_' + j + '_' + i));
             }
 
         }
@@ -36,14 +32,16 @@ Matrix = function (containerId, rows, cols)
         return $('#cell_' + position.x + '_' + position.y);
     };
 
-    // установить значение ¤чейки
     this.setCell = function(position, valClass)
     {
-
         var cell = self.getCell(position);
+        cell.addClass(valClass);
+    };
 
-    }
+    this.setFoot = function () {
 
+    };
 
+    this.constructor();
 };
 
