@@ -1,20 +1,22 @@
 "use strict";
 
 var Matrix = function (element, rows, cols) {
+    var self = this;
     this.element = element;
     this.cellSize = 20;
     this.rows = rows || 20;
     this.cols = cols || 20;
     this.snake = null;
-    var self = this;
+    this.nameClassFoot = 'foot';
 
     this.constructor = function() {
-        this.element.css({
+        self.element.css({
             width: this.cols * this.cellSize,
             height: this.rows * this.cellSize
         });
-        this.create();
-        this.snake = new Snake();
+        self.create();
+        self.snake = new Snake(self);
+        self.setFoot();
     };
 
     this.create = function() {
@@ -38,8 +40,28 @@ var Matrix = function (element, rows, cols) {
         cell.addClass(valClass);
     };
 
-    this.setFoot = function () {
+    this.clearCell = function (position) {
+        var cell = self.getCell(position);
+        cell.removeClass();
+    };
 
+    this.setFoot = function () {
+        var coordinates = self.getRandomCoordinates();
+        self.setCell(coordinates,self.nameClassFoot);
+    };
+
+    this.gameOver = function () {
+        alert('GAME OVER');
+    };
+
+    this.getRandomCoordinates = function() {
+        var position = {
+            x : 0,
+            y : 0
+        };
+        position.x = getRandom(1,this.cols);
+        position.y = getRandom(1,this.rows);
+        return position;
     };
 
     this.constructor();
