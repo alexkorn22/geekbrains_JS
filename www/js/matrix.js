@@ -47,6 +47,10 @@ var Matrix = function (element, rows, cols) {
 
     this.setFoot = function () {
         var coordinates = self.getRandomCoordinates();
+        while ((coordinates.x == self.snake.head.x && coordinates.y == self.snake.head.y)
+            || (self.isCellSnake(coordinates))) {
+            coordinates = self.getRandomCoordinates();
+        }
         self.setCell(coordinates,self.nameClassFoot);
     };
 
@@ -62,6 +66,20 @@ var Matrix = function (element, rows, cols) {
         position.x = getRandom(1,this.cols);
         position.y = getRandom(1,this.rows);
         return position;
+    };
+
+    this.checkInBorder = function (position, exludeClass) {
+        var cell = self.getCell(position);
+        return !cell.length || cell.hasClass(exludeClass);
+    };
+
+    this.isCellFoot = function (position) {
+        var cell = self.getCell(position);
+        return cell.hasClass(self.nameClassFoot);
+    };
+    this.isCellSnake = function (position) {
+        var cell = self.getCell(position);
+        return cell.hasClass(self.snake.nameClass);
     };
 
     this.constructor();

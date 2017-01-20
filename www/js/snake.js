@@ -8,8 +8,20 @@ var Snake = function (matrix, speed) {
 		{
 			x: 1,
 			y: 1
+		},
+		{
+			x: 2,
+			y: 1
+		},
+		{
+			x: 3,
+			y: 1
 		}
 	];
+	this.head = {
+		x: 3,
+		y: 1
+	};
 
 	this.direction = {
 		x: 1,
@@ -17,17 +29,11 @@ var Snake = function (matrix, speed) {
 	};
 
 	this.constructor = function () {
-		self.matrix.setCell(this.body[0],this.nameClass);
+		for (var i=0; i < self.body.length; ++i) {
+			self.matrix.setCell(self.body[i],self.nameClass);
+		}
 		$(window).keydown(self.setDirection);
 		self.interval = setInterval(self.move,self.speed);
-	};
-
-	this.move = function () {
-		var lastPosition = self.body[0];
-		self.matrix.clearCell(lastPosition);
-		self.body[0].x =  lastPosition.x + self.direction.x;
-		self.body[0].y =  lastPosition.y + self.direction.y;
-		self.matrix.setCell(self.body[0],self.nameClass);
 	};
 
 	this.setDirection = function (e) {
@@ -46,9 +52,37 @@ var Snake = function (matrix, speed) {
 				self.direction.y = 1;
 				break;
 			case 38: // вверх
-				self.direction.y = -1
+				self.direction.y = -1;
 				break;
 		}
+	};
+	
+	this.move = function () {
+
+		var lastPosition = self.body[self.body.length - 1];
+		var head = {
+			x: lastPosition.x + self.direction.x,
+			y: lastPosition.y + self.direction.y
+		};
+		self.head = head;
+		if (self.matrix.checkInBorder(head,self.nameClass)) {
+			clearInterval(self.interval);
+			self.matrix.gameOver();
+		} else {
+			if (self.matrix.isCellFoot(head)) {
+				self.eat();
+			} else {
+				var tail = self.body.shift();
+				self.matrix.clearCell(tail);
+			}
+			self.body.push(head);
+			self.matrix.setCell(head,self.nameClass);
+		}
+	};
+
+	this.eat = function () {
+		self.matrix.clearCell(self.head);
+		self.matrix.setFoot();
 	};
 
 	this.constructor();
